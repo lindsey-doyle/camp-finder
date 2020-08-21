@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import sys
+import json
 import requests
 from datetime import date, datetime, timedelta
 from dateutil import rrule
@@ -108,14 +110,13 @@ def page_link(campground_id):
 # DRIVER #
 ##########
 
-def driver(campground_id, input_start_date, input_end_date, headers=None):
+def driver(campground_id, input_start_date, input_end_date):
     '''
     Driver method. 
     '''
 
     # Set headers
-    if not headers:
-        headers = {"User-Agent": UserAgent().random}
+    headers = {"User-Agent": UserAgent().random}
     
     # Convert strings to datetimes
     start_date = datetime.strptime(input_start_date, "%Y-%m-%d")
@@ -135,20 +136,27 @@ def driver(campground_id, input_start_date, input_end_date, headers=None):
     # Filter data
     filtered_data = filter_data(raw_data, start_date, end_date)
     
-    print("{}: {} site(s) with availability between {} and {}"
+    print("\n {}: {} site(s) with availability between {} and {}"
       .format(get_campground_name(campground_id, headers), 
               len(filtered_data.keys()), 
-              start_date, end_date))
-    print("To make a reservation go to: {}".format(page_link(campground_id)))
+              input_start_date, input_end_date))
+    print(" To make a reservation go to: {} \n".format(page_link(campground_id)))
     #pprint.pprint(filtered_data)
     return 
 
 if __name__ == "__main__":
 
-    campground_id = '232825'
-    input_start_date = '2020-08-29'
-    input_end_date = '2020-10-30'
+    targets = sys.argv[1:]
+    
+    #print(targets)
+
+
+    campground_id = targets[0] 
+    input_start_date = targets[1]
+    input_end_date = targets[2]
+    
 
     driver(campground_id, input_start_date, input_end_date)
+    print('\nDone. \n')
 
 
