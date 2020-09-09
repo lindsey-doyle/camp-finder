@@ -119,8 +119,8 @@ def driver(campground_id, input_start_date, input_end_date):
     headers = {"User-Agent": UserAgent().random}
     
     # Convert strings to datetimes
-    start_date = datetime.strptime(input_start_date, "%Y-%m-%d")
-    end_date = datetime.strptime(input_end_date, "%Y-%m-%d") 
+    start_date = datetime.strptime(input_start_date, "%m-%d-%Y")
+    end_date = datetime.strptime(input_end_date, "%m-%d-%Y") 
 
     # Get list of months formatted for API params
     start_of_month = datetime(start_date.year, start_date.month, 1) 
@@ -147,14 +147,10 @@ def driver(campground_id, input_start_date, input_end_date):
 if __name__ == "__main__":
 
     targets = sys.argv[1:]
-    
-    #print(targets)
-
 
     campground_id = targets[0] 
     input_start_date = targets[1]
     input_end_date = targets[2]
-    
 
     driver(campground_id, input_start_date, input_end_date)
     print('\nDone. \n')
