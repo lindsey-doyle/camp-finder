@@ -5,7 +5,7 @@ Find and book available campsites on Recreation.gov
 
 ### Availability Scanner Tool
 
-Scans for campsites with availability between <start-date> and <end-date>
+Scans for campsites with availability between `<start-date>` and `<end-date>`
 
 to run:  
 
